@@ -19,6 +19,14 @@ always running, makes it obvious that you are scheduling your commits, and
 any immediate commits and pushes (ie to fix a bug on the site) will break
 the pattern.
 
+## How to install GitFog
+
+Have Ruby and RubyGems installed on your computer.
+
+Then run ```gem install gitfog```
+
+Currently at version 0.0.2
+
 ## How to use GitFog
 
 ```gitfog init``` will disable git and enable gitfog commands. This prevents
