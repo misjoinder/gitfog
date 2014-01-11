@@ -1,0 +1,19 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    commander (4.1.5)
+      highline (~> 1.6.11)
+    fileutils (0.7)
+      rmagick (>= 2.13.1)
+    git (1.2.6)
+    highline (1.6.20)
+    rmagick (2.13.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  commander (~> 4.1.5)
+  fileutils (~> 0.7)
+  git (~> 1.2.6)
+  highline (~> 1.6.20)
