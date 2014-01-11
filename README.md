@@ -29,6 +29,10 @@ leaking your global git config though commits)
 ```gitfog off``` will disable gitfog and re-enable git commands. Make sure
 you do not commit data that you do not want to be shared.
 
+
+```gitfog status```, ```gitfog add```, and ```gitfog rm``` replace the standard git
+commands.
+
 ```gitfog commit``` will set the timestamp on your commit to sometime between
 the previous commit and the present, up to 48 hours in the past. This makes
 it possible for you to make a few commits in quick succession which in the
