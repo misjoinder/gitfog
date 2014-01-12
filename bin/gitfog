@@ -7,7 +7,7 @@ require 'highline/import'
 require 'fileutils'
 require 'git'
 
-program :version, '0.0.2'
+program :version, '0.0.3'
 program :description, 'Camouflage git commit and push'
 
 def verify_gitfog
@@ -216,8 +216,9 @@ command :commit do |c|
       last_commit = Time.now - 48 * 60 * 60
       begin
         repo.log(1).each do |commit|
-          # actually returns a Time object
-          last_commit = commit.date
+          # commit.date actually returns a Time object
+          # use it as earliest time unless it is already > 48 hours ago
+          last_commit = commit.date if commit.date > last_commit
         end
       rescue
         # usually means a repo has no prior commits
@@ -245,7 +246,7 @@ command :commit do |c|
       if ok_to_commit
         # choose a past time
         seconds_diff = Time.now - last_commit
-        commit_time = last_commit + Random.rand(0..seconds_diff)
+        commit_time = last_commit + Random.rand(1..seconds_diff)
         commit_time = commit_time.to_s
         puts "Backdating to the commit to " + commit_time
 
@@ -292,7 +293,7 @@ command :push do |c|
         # get maximum delay from user
         delay_push = options.limit * 60 * 60
       end
-      delay_push = Random.rand(0..delay_push)
+      delay_push = Random.rand(2..delay_push)
       push_time = Time.now + delay_push
       puts "Delaying push " + delay_push.to_s + " seconds, until " + push_time.to_s
 

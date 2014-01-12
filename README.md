@@ -1,15 +1,17 @@
 # GitFog
 
 Inspired by <a href="http://bitcoinfog.com/">Bitcoin Fog</a>, GitFog is a
-command line tool to replace ```git commit``` and ```git push``` with
-randomized timestamps.
+command line tool that camouflages your work with git by randomizing timestamps on
+```git commit``` and ```git push```.
 
 ## Use case
 
-You are contributing anonymously to a project. Someone suspects that you
-might be involved, and finds out that you often commit to personal
-projects on Tuesday afternoons. They can examine whether your commits and
-pushes happen at similar days and times as others.
+When you contribute code with git, you share your name, email, and work schedule with
+everyone. GitFog helps you change your git/config, then goes further to better anonymize
+your work. Suppose someone suspects that you are involved, and finds out that you often
+commit to personal projects on Tuesday afternoons. They would examine whether your commits and
+pushes happen at similar days and times as others. By using GitFog, your commits are spaced
+out and randomized.
 
 ## Alternatives
 
@@ -25,7 +27,7 @@ Have Ruby and RubyGems installed on your computer.
 
 Then run ```gem install gitfog```
 
-Currently at version 0.0.2
+Currently at version 0.0.3
 
 ## How to use GitFog
 
@@ -35,8 +37,8 @@ a user email and password to connect to commits (this prevents you from
 leaking your global git config though commits)
 
 ```gitfog off``` will disable gitfog and re-enable git commands. Make sure
-you do not commit data that you do not want to be shared.
-
+you do not commit data that you do not want to be shared. You can always re-enable
+GitFog with ```gitfog init```.
 
 ```gitfog status```, ```gitfog add```, and ```gitfog rm``` replace the standard git
 commands.
