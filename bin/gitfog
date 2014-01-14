@@ -7,7 +7,7 @@ require 'highline/import'
 require 'fileutils'
 require 'git'
 
-program :version, '0.0.3'
+program :version, '0.0.4'
 program :description, 'Camouflage git commit and push'
 
 def verify_gitfog
@@ -120,6 +120,19 @@ command :init do |c|
       cfile.puts config
     end
 
+    # ask whether to GPG sign commits
+    puts "Use your PGP key to sign commits?"
+    use_pgp = ask "Enter Y or Yes to add signature: "
+    if use_pgp.strip.downcase == "y" || use_pgp.strip.downcase == "yes"
+      File.open('.gitfog/use_pgp', 'w') do |pgp_file|
+        pgp_file.puts "yes"
+      end
+      puts "Enabled PGP signature on commits"
+    elsif File.exist?('.gitfog/use_pgp')
+      File.delete('.gitfog/use_pgp')
+      puts "Disabled PGP signature on commits"
+    end
+
     # remove old .git directory
     FileUtils.rm_rf('.git')
     puts "When you want to restore regular git commands, run 'gitfog off'."
@@ -207,6 +220,10 @@ command :commit do |c|
     # verify .gitfog exists
     verify_gitfog
 
+    # check whether to PGP sign commits
+    use_pgp = ""
+    use_pgp = " -S" if File.exist?('.gitfog/use_pgp')
+
     # copy .gitfog directory to .git
     restore_git
 
@@ -252,9 +269,9 @@ command :commit do |c|
 
         # make a timed commit
         if options.m
-          system "GIT_AUTHOR_DATE='" + commit_time + "' GIT_COMMITTER_DATE='" + commit_time + "' git commit -m \"" + options.m + "\""
+          system "GIT_AUTHOR_DATE='" + commit_time + "' GIT_COMMITTER_DATE='" + commit_time + "' git commit -m \"" + options.m + "\"" + use_pgp
         else
-          system "GIT_AUTHOR_DATE='" + commit_time + "' GIT_COMMITTER_DATE='" + commit_time + "' git commit"
+          system "GIT_AUTHOR_DATE='" + commit_time + "' GIT_COMMITTER_DATE='" + commit_time + "' git commit" + use_pgp
         end
       else
         puts "Try again after more time has passed."
@@ -263,9 +280,9 @@ command :commit do |c|
       puts "Making the commit with local system time"
       # make a commit without changing time
       if options.m
-        system 'git commit -m "' + options.m + '"'
+        system 'git commit -m "' + options.m + '"' + use_pgp
       else
-        system 'git commit'
+        system 'git commit' + use_pgp
       end
     end
 

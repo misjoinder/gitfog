@@ -27,7 +27,7 @@ Have Ruby and RubyGems installed on your computer.
 
 Then run ```gem install gitfog```
 
-Currently at version 0.0.3
+Currently at version 0.0.4
 
 ## How to use GitFog
 

@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'gitfog'
-  s.version     = '0.0.3'
-  s.date        = '2014-01-12'
+  s.version     = '0.0.4'
+  s.date        = '2014-01-15'
   s.executables << 'gitfog'
   s.summary     = "Camouflage git commit and push times"
   s.description = "Camouflage git commit and push times, disable regular git commands"
